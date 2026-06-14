@@ -19,6 +19,7 @@ CREATE TABLE paquetes (
 );
 
 CREATE TABLE reservas (
+
                           id_reserva INT AUTO_INCREMENT PRIMARY KEY,
 
                           id_paquete INT NOT NULL,
@@ -26,9 +27,16 @@ CREATE TABLE reservas (
                           nombre_cliente VARCHAR(100) NOT NULL,
                           email VARCHAR(100) NOT NULL,
                           telefono VARCHAR(20),
+
                           fecha_reserva DATE NOT NULL,
+
                           personas INT NOT NULL,
+
+                          total DECIMAL(10,2) NOT NULL,
+
                           notas TEXT,
+
+                          fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
 
                           FOREIGN KEY (id_paquete)
                               REFERENCES paquetes(id_paquete)
@@ -70,4 +78,4 @@ CREATE TABLE respuestas_contacto (
 INSERT INTO administradores
 (usuario,password)
 VALUES
-    ('Kevin','1GS134'),('Amy','1GS134'),('Aaron', '1GS134');
+    ('Kevin22','1GS134'),('Amy33','1GS134'),('Aaron44', '1GS134');
