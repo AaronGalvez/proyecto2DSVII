@@ -1,41 +1,29 @@
 <?php
-/*
- * Archivo: controllers/PaqueteController.php
- * Descripción: Controlador para gestión de paquetes turísticos.
- * Autor: Melany
- */
 
 require_once __DIR__ . '/../models/PaqueteModel.php';
 
 class PaqueteController {
+
     private $model;
 
-    public function __construct($pdo) {
-        $this->model = new PaqueteModel($pdo);
+    public function __construct() {
+        $this->model = new PaqueteModel();
     }
 
-    // Mostrar listado de paquetes
     public function index() {
         $paquetes = $this->model->getAll();
-        require_once __DIR__ . '/../views/paquetes/index.php';
+        require_once __DIR__ . '/../views/paquetes.php';
     }
 
-    // Mostrar detalle de un paquete
     public function detalle($id) {
         $paquete = $this->model->getById($id);
         if (!$paquete) {
             header("Location: index.php?ruta=paquetes");
             exit;
         }
-        require_once __DIR__ . '/../views/paquetes/detalle.php';
+        require_once __DIR__ . '/../views/detalle.php';
     }
 
-    // Mostrar formulario de creación (admin)
-    public function crear() {
-        require_once __DIR__ . '/../views/paquetes/form.php';
-    }
-
-    // Procesar formulario de creación (admin)
     public function guardar() {
         $nombre      = trim($_POST['nombre'] ?? '');
         $provincia   = trim($_POST['provincia'] ?? '');
@@ -52,17 +40,6 @@ class PaqueteController {
         exit;
     }
 
-    // Mostrar formulario de edición (admin)
-    public function editar($id) {
-        $paquete = $this->model->getById($id);
-        if (!$paquete) {
-            header("Location: index.php?ruta=paquetes");
-            exit;
-        }
-        require_once __DIR__ . '/../views/paquetes/form.php';
-    }
-
-    // Procesar actualización (admin)
     public function actualizar($id) {
         $nombre      = trim($_POST['nombre'] ?? '');
         $provincia   = trim($_POST['provincia'] ?? '');
@@ -79,7 +56,6 @@ class PaqueteController {
         exit;
     }
 
-    // Eliminar paquete (admin)
     public function eliminar($id) {
         $this->model->eliminar($id);
         header("Location: index.php?ruta=paquetes");
